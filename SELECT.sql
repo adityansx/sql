@@ -35,6 +35,20 @@ SELECT D.DEPTNO, E.ENAME, E.JOB FROM EMP E, DEPT D WHERE E.EMPNO = D.DEPTNO AND 
 SELECT E.ENAME, D.DEPTNO, D.DNAME FROM EMP E, DEPT D WHERE E.DEPTNO = D.DEPTNO;
 SELECT ENAME, DEPTNO, DNAME FROM EMP NATURAL JOIN DEPT;
 SELECT
+SELECT
+    EMPNO,
+    ENAME,
+    JOB,
+    MGR,
+    HIREDATE,
+    SAL,
+    COMM,
+    DEPTNO
+FROM
+    EMP
+WHERE
+    EMPNO = NUMBER(4);
+
     DEPTNO,
     DNAME,
     LOC
@@ -58,6 +72,12 @@ SELECT EMP.ENAME, DEPT.DEPTNO, DEPT.DNAME FROM EMP, DEPT WHERE EMP.DEPTNO = DEPT
 
 /*32 . Query to display the Department Name, Location Name, No. of Employees and the
 average salary for all employees in that department.*/
-
+SELECT D.DNAME, D.LOC, COUNT(E.DEPTNO) AS "NO. OF EMP", ROUND(AVG(E.SAL), 2) AS SALARY FROM EMP E, DEPT D WHERE E.DEPTNO = D.DEPTNO GROUP BY D.DNAME, D.LOC, E.DEPTNO;
 
 /*30. Query to display the number of employees performing the same Job type functions*/
+SELECT JOB,COUNT(*) FROM EMP GROUP BY JOB; --DONE
+
+/*27. Query to display Name, Department No. And Salary of any employee whose
+department No. and salary matches both the department no. And the salary of any
+employee who eans a commission.*/
+SELECT E1.ENAME, E1.DEPTNO, E1.SAL FROM EMP E1, EMP E2 WHERE E1.SAL = E2.SAL AND E2.COMM IS NOT NULL;
